@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'w3c_validators'
 
@@ -24,4 +25,3 @@ def validate(file)
 end
 
 validate 'index.html'
-validate File.join 'assets', 'css', 'style.css'
