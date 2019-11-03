@@ -10,7 +10,7 @@ title: Pikachu's Blog
 
 # 语言
 
-[c](files/c-language.pdf)
+[c](files/c-language.md)
 
 [c++]()
 
