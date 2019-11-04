@@ -2,7 +2,6 @@ exclude:
   - node_modules
   - script
 
-markdown: CommonMark
 
 sass:
   style: :compressed
@@ -19,4 +18,4 @@ github:
   repository_url: "https://github.com/YohnWang/YohnWang.github.io"
   
 title: Pikachu's Blog
-description: nothing
+description: under construction
