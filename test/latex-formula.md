@@ -1,3 +1,9 @@
+---
+title: Test by latex formula
+---
+
+[TOC]
+
 # 基本公式
 
 LATEX公式行内使用两个`$`，例如
@@ -200,13 +206,13 @@ $$
 
 还有不同的括号类型
 
-- `{Bmatrix}` $\begin{Bmatrix} 1 &2 \\ 3 & 4 \end{Bmatrix}$
+- `{Bmatrix}` $\begin{Bmatrix} 1 &2 \\ 3 &4 \end{Bmatrix}$
 
-- `{pmatrix}`  $\begin{pmatrix} 1 &2 \\ 3 & 4 \end{pmatrix}$
+- `{pmatrix}`  $\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$
 
-- `{vmatrix}` $\begin{vmatrix} 1 &2 \\ 3 & 4 \end{vmatrix}$
+- `{vmatrix}` $\begin{vmatrix} 1 & 2 \\ 3 & 4 \end{vmatrix}$
 
-- `{Vmatrix}` $\begin{Vmatrix} 1 &2 \\ 3 & 4 \end{Vmatrix}$
+- `{Vmatrix}` $\begin{Vmatrix} 1 & 2 \\ 3 & 4 \end{Vmatrix}$
 
 # 选择符号
 
@@ -232,6 +238,7 @@ x & \text{if } x\ge 0 \\
 \end{matrix}
 \right.
 $$
+
 `\left\{`  `\right.`可以使他们之间的内容被括起来，`\right.`表示不显示内容
 
 另一种方式是采用`{cases}`
