@@ -1,8 +1,9 @@
 ---
+layout: default
 title: Test by latex formula
 ---
 
-[TOC]
+{: toc}
 
 # 基本公式
 
