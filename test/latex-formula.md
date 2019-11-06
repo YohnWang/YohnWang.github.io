@@ -3,6 +3,7 @@ layout: default
 title: Test by latex formula
 ---
 
+* 目录
 {: toc}
 
 # 基本公式
