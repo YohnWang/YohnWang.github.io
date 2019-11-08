@@ -16,6 +16,14 @@
 
 [test1](test/latex-formula.md)
 
+
+
+# 论文翻译
+
+[Resource-Management-with-Deep-Reinforcement-Learning](files/Resource-Management-with-Deep-Reinforcement-Learning.md)
+
+
+
 # 网页问题
 
 1 因为kramdown解析markdwon时，会将`\\`转义成`\`，所以行内公式（使用一对`$`）的换行显示将会出现问题，一般在矩阵中，除非改动markdown，否则目前无法无法解决，但改动会导致本地的typora显示有问题，所以暂时不解决这个问题。
