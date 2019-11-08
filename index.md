@@ -20,7 +20,7 @@
 
 # 论文翻译
 
-[Resource-Management-with-Deep-Reinforcement-Learning](files\Resource-Management-with-Deep-Reinforcement-Learning)
+[Resource-Management-with-Deep-Reinforcement-Learning](files/Resource-Management-with-Deep-Reinforcement-Learning/Resource-Management-with-Deep-Reinforcement-Learning.html)
 
 
 
