@@ -2,6 +2,9 @@ exclude:
   - node_modules
   - script
 
+kramdown:
+  input: GFM # Github Flavored Markdown
+  math_engine: katex # 防止行间公式渲染错误
 
 sass:
   style: :compressed
