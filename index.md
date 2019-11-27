@@ -18,6 +18,8 @@
 
 [test2](test/test.md)
 
+[test3](test/xtest.html)
+
 # 论文翻译
 
 [Resource-Management-with-Deep-Reinforcement-Learning](files/Resource-Management-with-Deep-Reinforcement-Learning/Resource-Management-with-Deep-Reinforcement-Learning.html)
