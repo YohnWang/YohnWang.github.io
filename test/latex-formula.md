@@ -167,8 +167,9 @@ $$
 
 在参数估计中，对于估计量的表示，一般使用$\hat{y}$表示，他的写法是`\hat{y}`
 
-另外一些如下
-|      代码       |      样式       |
+另外一些如下 
+
+|      代码        |      样式       |
 | :-------------: | :-------------: |
 |`\bar{a}`        |       $\bar{a}$|
 |`\overline{a}` |	$\overline{a}$|
@@ -223,10 +224,10 @@ $$
 
 |   代码   |  样例    |
 | :--: | :--: |
-|  `{Bmatrix}`    |   $\begin{Bmatrix} 1 &2 \\ 3 & 4 \end{Bmatrix}$    |
-|   `{pmatrix}`   |    $\begin{pmatrix} 1 &2 \\ 3 & 4 \end{pmatrix}$   |
-|   `{vmatrix}`   |  $\begin{vmatrix} 1 &2 \\ 3 & 4 \end{vmatrix}$    |
-|`{Vmatrix}`|      $\begin{Vmatrix} 1 &2 \\ 3 & 4 \end{Vmatrix}$      |
+|  `{Bmatrix}`    |   $$\begin{Bmatrix} 1 &2 \\ 3 & 4 \end{Bmatrix}$$   |
+|   `{pmatrix}`   |   $$\begin{pmatrix} 1 &2 \\ 3 & 4 \end{pmatrix}$$   |
+|   `{vmatrix}`   |  $$\begin{vmatrix} 1 &2 \\ 3 & 4 \end{vmatrix}$$  |
+|`{Vmatrix}`|      $$\begin{Vmatrix} 1 &2 \\ 3 & 4 \end{Vmatrix}$$      |
 
 
 # 选择符号
