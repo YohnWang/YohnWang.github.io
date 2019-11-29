@@ -1,10 +1,7 @@
 ---
-layout: default
+layout: mdtex
 title: Test by latex formula
 ---
-
-* 目录
-{: toc}
 
 # 基本公式
 
@@ -166,9 +163,25 @@ $$
 
 重积分只需在`\int`前多加几个`i`即可，例如二重积分使用`\iint`
 
-# 概率统计中的表示
+# 重音符
 
 在参数估计中，对于估计量的表示，一般使用$\hat{y}$表示，他的写法是`\hat{y}`
+
+另外一些如下
+|      代码       |      样式       |
+| :-------------: | :-------------: |
+|`\bar{a}`        |       $\bar{a}$|
+|`\overline{a}` |	$\overline{a}$|
+|`\hat{a}` 		|      $\hat{a}$	|
+|`\widehat{A}`  |    $\widehat{A}$||
+|`\dot{a}`      |         $\dot{a}$|
+|`\ddot{a}`     |        $\ddot{a}$|
+|`\tilde{a}`    |       $\tilde{a}$|
+|`\widetilde{A}`| $\widetilde{A}$|
+|`\vec{a}`       |       $\vec{a}$|
+|`\check{a}`     |     $\check{a}$|
+|`\acute{a}`     |    $\acute{a}$|
+|`\grave{a}`     |    $\grave{a}$|
 
 # 矩阵
 
@@ -208,13 +221,13 @@ $$
 
 还有不同的括号类型
 
-- `{Bmatrix}` $\begin{Bmatrix} 1 &2 \\ 3 &4 \end{Bmatrix}$
+|   代码   |  样例    |
+| :--: | :--: |
+|  `{Bmatrix}`    |   $\begin{Bmatrix} 1 &2 \\ 3 & 4 \end{Bmatrix}$    |
+|   `{pmatrix}`   |    $\begin{pmatrix} 1 &2 \\ 3 & 4 \end{pmatrix}$   |
+|   `{vmatrix}`   |  $\begin{vmatrix} 1 &2 \\ 3 & 4 \end{vmatrix}$    |
+|`{Vmatrix}`|      $\begin{Vmatrix} 1 &2 \\ 3 & 4 \end{Vmatrix}$      |
 
-- `{pmatrix}`  $\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$
-
-- `{vmatrix}` $\begin{vmatrix} 1 & 2 \\ 3 & 4 \end{vmatrix}$
-
-- `{Vmatrix}` $\begin{Vmatrix} 1 & 2 \\ 3 & 4 \end{Vmatrix}$
 
 # 选择符号
 
@@ -240,7 +253,6 @@ x & \text{if } x\ge 0 \\
 \end{matrix}
 \right.
 $$
-
 `\left\{`  `\right.`可以使他们之间的内容被括起来，`\right.`表示不显示内容
 
 另一种方式是采用`{cases}`
@@ -262,6 +274,34 @@ x & \text{if }x \ge 0 \\
 -x & \text{others}
 \end{cases}
 $$
+
+# 上下括号
+
+即`overbrace{}`与`underbrace{}`，说明文字至于上下方使用`^ _`
+
+```latex
+\begin{aligned}
+\overbrace{p(x_t|y_1...y_t)}^{\text{update}} &\propto \\
+&p(y_t|x_t) \underbrace{ p(x_t|y_1...y_{t-1})}_{\text{prediction}}
+\end{aligned}
+```
+
+$$
+\begin{aligned}
+\overbrace{p(x_t|y_1...y_t)}^{\text{update}} &\propto \\
+&p(y_t|x_t) \underbrace{ p(x_t|y_1...y_{t-1})}_{\text{prediction}}
+\end{aligned}
+$$
+
+# 公式字体
+
+|      代码       |      样式       |
+| :-------------: | :-------------: |
+| `\mathbb{ABC}`  | $\mathbb{ABC}$  |
+| `\mathbf{ABC}`  | $\mathbf{ABC}$  |
+| `\mathcal{ABC}` | $\mathcal{ABC}$ |
+| `\mathscr{ABC}` | $\mathscr{ABC}$ |
+| `\mathrm{ABC}`  | $\mathrm{ABC}$  |
 
 # 多行公式
 
