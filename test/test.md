@@ -13,3 +13,5 @@ math inline $x \mapsto [0,1]$
 
 inline math matrix $$\begin{Bmatrix} 1 &2 \\ 3 & 4 \end{Bmatrix}$$
 
+mathjax3 test $\sum_0^1$
+

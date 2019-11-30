@@ -171,18 +171,18 @@ $$
 
 |      代码        |      样式       |
 | :-------------: | :-------------: |
-|`\bar{a}`        |       $\bar{a}$|
-|`\overline{a}` |	$\overline{a}$|
-|`\hat{a}` 		|      $\hat{a}$	|
-|`\widehat{A}`  |    $\widehat{A}$||
-|`\dot{a}`      |         $\dot{a}$|
-|`\ddot{a}`     |        $\ddot{a}$|
-|`\tilde{a}`    |       $\tilde{a}$|
-|`\widetilde{A}`| $\widetilde{A}$|
-|`\vec{a}`       |       $\vec{a}$|
-|`\check{a}`     |     $\check{a}$|
-|`\acute{a}`     |    $\acute{a}$|
-|`\grave{a}`     |    $\grave{a}$|
+|`\bar{a}`        |       $\bar{a}$ |
+|`\overline{a}` |	$\overline{a}$ |
+|`\hat{a}` 		|      $\hat{a}$  |
+|`\widehat{A}`  |    $\widehat{A}$ |
+|`\dot{a}`      |         $\dot{a}$ |
+|`\ddot{a}`     |        $\ddot{a}$ |
+|`\tilde{a}`    |       $\tilde{a}$ |
+|`\widetilde{A}`| $\widetilde{A}$ |
+|`\vec{a}`       |       $\vec{a}$ |
+|`\check{a}`     |     $\check{a}$ |
+|`\acute{a}`     |    $\acute{a}$ |
+|`\grave{a}`     |    $\grave{a}$ |
 
 # 矩阵
 
