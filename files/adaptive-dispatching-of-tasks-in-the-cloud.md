@@ -161,6 +161,7 @@ TAP不断进行在线监控和测量，以跟踪云系统的状态，包括资�
 #### 4.1.1 Model Based Task Allocation
 
 > Model Based Allocation (c) uses a mathematical model to predict the estimated performance at a host in order to make a randomised task allocation. This has been used in earlier work concerning task allocation schemes that help reduce the overall energy consumed in a system [8]. In this approach, if $W_{i}\left(\lambda, p_{i}\right)$  is the relevant QoS metric obtained for host $i$ by allocating a randomised fraction $p_i$ of tasks to host $i$ when the overall arrival rate of tasks to TAP is $\lambda$, then the allocation probabilities $p_1,..., p_N$ are chosen so as to minimise the overall average QoS metric:
+> 
 > $$
 > W=\sum_{i=1}^{N} p_{i} W_{i}\left(\lambda, p_{i}\right)
 > $$
@@ -244,24 +245,31 @@ $$
 #### 4.1.2 Sensible Routing
 
 > The Sensible Decision Algorithm (e) uses a weighted average of $G_i$ of the goal function that we wish to minimise, which is estimated from on-going measurements at each host $i$, and updated each time $t$ that TAP receives a measurement that can be used to update the goal function. Specifically, when the goal function is the response time, its most recently measured value at time $t$, $G_i^t$ , is received at TAP for host $i$, and the $n$th update of $G_i$ is computed:
+> 
 > $$
 > G_{i} \leftarrow(1-\alpha) G_{i}+\alpha G_{i}^{t}
 > $$
+> 
 > where the parameter $0\le \alpha \le 1$ is used to vary the weight given to the most recent measurement as compared to past values. Based on updating this value for each host $i$, the probability $p_i^s$ that will be used to allocate a task to host $i$ is:
+> 
 > $$
 > p_{i}^{S}=\frac{\frac{1}{G_{i}}}{\sum_{j=1}^{N} \frac{1}{G_{j}}}, 1 \leq i \leq N
 > $$
+> 
 > If TAP allocates a task with this approach, it will use the most recent value of the $p^S_i$ which is available. Note that all of the $G_i$ values for different $i$ will not be equally “fresh”, though the probing via SPs from TAP to the hosts proceeds at the same rate for all the hosts.
 
 敏感决策算法（e）使用我们希望最小化的目标函数的$G_i$的加权平均值，这是根据每个主机$ i $正在进行的测量估计的，并且在TAP收到的每个时刻$t$的测量可被用来更新目标函数。具体来说，当目标函数是响应时间时，在TAP为主机$ i $接收其最近测量的值$ t $，$ G_i ^ t $，第$ n $次更新的$ G_i $为：
+
 $$
 G_{i} \leftarrow(1-\alpha) G_{i}+\alpha G_{i}^{t}
 $$
+
 参数$0\le \alpha \le 1$被用于改变与旧值相比最近测量的权值。基于每个主机$i$更新的值，概率$p^S_i$被用于分配任务到主机$i$：
 
 $$
 p_{i}^{S}=\frac{\frac{1}{G_{i}}}{\sum_{j=1}^{N} \frac{1}{G_{j}}}, 1 \leq i \leq N
 $$
+
 如果TAP使用此方法分配任务，它将使用可用的$ p ^ S_i $的最新值。请注意，所有不同$ i $的$ G_i $值都不会同样“新鲜”，尽管通过SP从TAP到主机的探测对所有主机都以相同的速率进行。
 
 -----
@@ -283,6 +291,7 @@ $$
 > This earlier work differs completely from the approach used in this paper which is based on on-line search, similar to the search by autonomous robots [40], [41], [42] with reinforcement learning [43] with real-time measurements. The RNN has also been used for packet routing [44]; in that work, an RNN placed at each router to select the next hop for probe (or smart) packets which explore routes and collect quality of service information. Thus the probes are routed to explore the better paths in the network, and bring back the data they collect to each source router. End users then examine the data available at the source nodes, and select the best current paths from the data collected by the by the probes. This approach, where the RNNs serve to route the probes (but not the user traffic) also differs from the approach in this paper, where an RNN is used to decide, for a given task, which server should be used.
 >
 > In the present work, a RNN is used to select between $N$ hosts to which a task will be allocated, using its $N$ neurons in a fully connected form [23]. Each neuron $i$ is characterised by an integer $k_i(\tau) \ge 0$ which is its “level of excitation”, where $\tau$ represents time, and each neuron is connected to other neurons both via excitatory and inhibitory weights. Furthermore, for the specific application for TAP, each neuron is identified with a particular host, i.e. neuron $i$ is identified with the decision to assign a task to host $i$. The theoretical underpinning of the RNN [45] is a theorem that states that, at the equilibrium state, the probabilities:
+> 
 > $$
 > q_{i}=\lim _{\tau \rightarrow \infty} \operatorname{Prob}\left[k_{i}(\tau)>0\right]
 > $$
@@ -299,26 +308,32 @@ q_{i}=\lim _{\tau \rightarrow \infty} \operatorname{Prob}\left[k_{i}(\tau)>0\rig
 $$
 
 > are uniquely obtained from the expression:
+> 
 > $$
 > q_{i}=\frac{\Lambda(i)+\sum_{j=1}^{N} q_{j} w^{+}(j, i)}{r(i)+\lambda(i)+\sum_{j=1}^{N} q_{j} w^{-}(j, i)}
 > $$
 > 
 
 从表达式中唯一获得：
+
 $$
 q_{i}=\frac{\Lambda(i)+\sum_{j=1}^{N} q_{j} w^{+}(j, i)}{r(i)+\lambda(i)+\sum_{j=1}^{N} q_{j} w^{-}(j, i)}
 $$
 
 > where the $\omega^+(j,i)$ and $\omega^-(j,i)$ are the excitatory and inhibitory weights from neuron $j$ to neuron $i$ with $\omega^+(i,i)=\omega^-(i,i)=0$. $\Lambda(i)$ and $\lambda(i)$ are the inputs of external excitatory and inhibitory signals to neuron $i$, while:
+> 
 > $$
 > r(i)=\sum_{j=1}^{N}\left[w^{+}(i, j)+w^{-}(i, j)\right]
 > $$
+> 
 > In the present case, a distinct RNN is set up within TAP to cover each distinct goal function $G$. However, these different RNNs need not be created in advance and stored at TAP indefinitely, but instead created when they are actually needed. Thus we will have a distinct RNN that is used to decide about allocations made on the basis of minimising economic cost (as when the end users pay a monetary price for the work they receive), or minimising task response time, or minimising task execution time, and so on.
 
 $\omega^+(j,i)$ 和 $\omega^-(j,i)$是从神经元$j$到神经元$i$的兴奋和抑制权重，其中 $\omega^+(i,i)=\omega^-(i,i)=0$。$\Lambda(i)$ 和 $\lambda(i)$ 是对神经元$i$的外部兴奋和抑制信号，其中
+
 $$
 r(i)=\sum_{j=1}^{N}\left[w^{+}(i, j)+w^{-}(i, j)\right]
 $$
+
 在当前情况下，在TAP内建立不同的RNN以覆盖每个不同的目标函数$G$。然而，这些不同的RNN不需要预先创建并且无限期地存储在TAP中，而是在实际需要时创建。因此，我们将有一个独特的RNN，用于决定在最小化经济成本的基础上进行的分配（如最终用户为他们收到的工作支付货币价格），或最小化任务响应时间，或最小化任务执行时间， 等等。
 
 > A given RNN is initialised by setting $\omega^+(i,j)=\omega^-(i,j)=1/2(N-1)$, so that $r(i)=1$ for all $i$, and $\Lambda(i)=0.25+0.5\lambda(i)$. In particular we can choose $\lambda(i)=0$ so that all $\Lambda(i)=0.25$. This of course results in $q_i=0.5$ for all $i$.
@@ -338,6 +353,7 @@ $$
 > where $0 < \alpha < 1$ is a parameter used to vary the relative importance of “past history”.
 >
 > - Then, if $G^t_i < T$, it is considered that the advice provided by the RNN in the past was successful and TAP updates the weights as follows:
+> 
 > $$
 > w^{+}(j, i) \leftarrow w^{+}(j, i)+\frac{1}{G_{i}^{t}} \\
 > w^{-}(j, k) \leftarrow w^{-}(j, k)+\frac{1}{G_{i}^{t}(N-2)},\text{if} \quad k\ne i
@@ -356,9 +372,11 @@ TAP然后会使用 $q_i$, $i=1,\dots,N$ 来分配，所以任务会被分配到�
 当TAP收到目标函数$G_i^t$的值，即主机$i$在时刻$t$被测量的那个，并且$\frac{1}{G_i^t}$被当成“奖励”，以便RNN的权重如下进行更新：
 
 - 我们首先将决策阈值$ T_l $更新为
+
   $$
   T \leftarrow \alpha T+(1-\alpha)\frac{1}{G_i^t} \quad (8)
   $$
+  
   其中$ 0 <\alpha <1 $是用于更改“过去历史”的相对重要性的参数。
 
 - 然后，如果$ G ^ t_i <T $，则认为RNN过去提供的建议是成功的，并且TAP如下更新权重：
@@ -368,18 +386,21 @@ TAP然后会使用 $q_i$, $i=1,\dots,N$ 来分配，所以任务会被分配到�
   $$
   
 - 否则如果$G^t_i>T$ 
+
   $$
   w^{+}(j, k) \leftarrow  w^{+}(j, k)+\frac{1}{G_{i}^{t}(N-2)}, \quad \text { if } k \neq i \\ w^{-}(j, i) \leftarrow w^{-}(i, j)+\frac{1}{G_{i}^{t}}
   $$
   
 
 > We compute $r^{*}(i)=\sum_{k=1}^{N}\left[w^{+}(i, k)+w^{-}(i, k)\right]$ for all $i$ and renormalise all weights so that their values do not grow indefinitely:
+> 
 > $$
 > w^{+}(i, k) \leftarrow \frac{r(i)}{r^{*}(i)} w^{+}(i, k), w^{-}(i, k) \leftarrow \frac{r(i)}{r^{*}(i)} w^{-}(i, k)
 > $$
 > 
 
 我们计算所有主机$i$的$r^{*}(i)=\sum_{k=1}^{N}\left[w^{+}(i, k)+w^{-}(i, k)\right]$，以及重新规格化所有权值，保证他们的值不会无限增长：
+
 $$
 w^{+}(i, k) \leftarrow \frac{r(i)}{r^{*}(i)} w^{+}(i, k), w^{-}(i, k) \leftarrow \frac{r(i)}{r^{*}(i)} w^{-}(i, k)
 $$
@@ -389,6 +410,7 @@ $$
 > In order to make sure that TAP tries out other alternates and does not miss out on better options, a fraction $f$ of the decisions are made in round robin fashion: thus we are sure that all hosts will be tried out in succession for$ f  \times 100%$ of the decisions, and the resulting goal function values will also be collected and updated. In the experiments that we describe below, $f$ was taken to be 0.1, i.e. 10 percent. We have actually evaluated this percentage experimentally and found 10 percent to provide the best value in the setting of our experiments, but depending on the size of the system this percentage may vary.
 >
 > Note also that this algorithm can be modified to a probabilistic “sensible” version [36] with:
+> 
 > $$
 > p_{i}^{R N N-S}=\frac{q_{i}}{\sum_{j=1}^{N} q_{j}}
 > $$
@@ -399,6 +421,7 @@ $$
 为了确保TAP尝试其他替代方案并且不会错过更好的选项，决策函数$f$使用循环方式设计：这样我们可以确保所有的主机会被连续试过以决定$f \times 100$，另外结果目标函数值会被收集和更新。在我们下面描述的实验中，$ f $被认为是0.1，即10％。我们实际上已经通过实验估计了这个百分比，发现10％可以在我们的实验设置中提供最佳值，但根据系统的大小，这个百分比可能会有所不同。
 
 另请注意，此算法可以修改为概率“合理”版本[36]，如下：
+
 $$
 p_{i}^{R N N-S}=\frac{q_{i}}{\sum_{j=1}^{N} q_{j}}
 $$
@@ -564,27 +587,35 @@ $$
 - 但是，如果不遵守SLA，则云服务将向用户支付一些罚款，然后必须从云服务期望接收的收入中扣除此罚款。例如，如果任务的响应时间$T$低于类$j$任务的SLA的上限$T_{j,1}>0$，那么罚款将变成0。更普遍地来说，当$T_{j0}=0$ 和 $c_{j0}=0$ （没有罚款）时，如果$T_{j,l-1} \le T \le kT_{j,l}$，那么罚款为$c_{jl}$。
 
 > Using standard notation, let $1_{[X]}$ is the function that takes the value $1$ if $X$ is true, and $0$ otherwise. Then the *net income* obtained by the cloud service for running a task of type $j$, after deducing the host operating cost and the eventual penalty for SLA violations, can be written as: 
+> 
 > $$
 > \begin{aligned} I_{j}^{*}=I_{j} &-C_{i j} 1_{\left[m=M_{i}\right]} \\ &-\sum_{l=1}^{n}\left\{c_{j l} 1_{\left[T_{j, l} \leq T<T_{j, l+1}\right]}\right\}+c_{j, n+1} 1_{\left[T \geq k T_{j, n+1}\right]} \end{aligned}
 > $$
+> 
 > Obviously, the cloud server would like to maximise $I_j^*$ , while $I_j$ is fixed in advance as part of the service agreement.
 >
 > Thus in this section we consider task allocation based on a Goal function that will allocate a machine $M_i$ to a task of class $j$ so as to minimise the net cost function:
+> 
 > $$
 > \begin{aligned} C_{j}=C_{i j} 1_{\left[m=M_{i}\right]} &+\sum_{l=1}^{n}\left\{c_{j l} 1_{\left[T_{j, l} \leq T<T_{j, l+1}\right.}\right\} \\ &+c_{j, n+1} 1_{\left[T \geq k T_{j, n+1}\right]} \end{aligned}
 > $$
+> 
 > Fig. 11 shows an example of the penalty function, which is the second term in (12), for two distinct classes of tasks, where the $x$-axis is the value of the response time $T$.
 
 用标准符号，让$ 1 _ {[X]} $是函数，如果$ X $为真，则取值$ 1 $，否则为$ 0 $。然后，在扣除主机运营成本和SLA违规的最终惩罚后，云服务获得的用于运行$ j $类型任务的*净收入*可写为：
+
 $$
 \begin{aligned} I_{j}^{*}=I_{j} &-C_{i j} 1_{\left[m=M_{i}\right]} \\ &-\sum_{l=1}^{n}\left\{c_{j l} 1_{\left[T_{j, l} \leq T<T_{j, l+1}\right]}\right\}+c_{j, n+1} 1_{\left[T \geq k T_{j, n+1}\right]} \end{aligned}
 $$
+
 显然，云服务器希望最大化$ I_j ^ * $，而$ I_j $作为服务协议的一部分提前修复。
 
 因此，在本节中，我们考虑基于目标函数的任务分配，该函数将机器$ M_i $分配给类$ j $的任务，以便最小化净成本函数：
+
 $$
 \begin{aligned} C_{j}=C_{i j} 1_{\left[m=M_{i}\right]} &+\sum_{l=1}^{n}\left\{c_{j l} 1_{\left[T_{j, l} \leq T<T_{j, l+1}\right.}\right\} \\ &+c_{j, n+1} 1_{\left[T \geq k T_{j, n+1}\right]} \end{aligned}
 $$
+
 图11示出了惩罚函数的示例，其是（12）中的第二项，用于两个不同类别的任务，其中$ x $轴是响应时间$ T $的值。
 
 ![fig11](resource/adaptive-dispatching-of-tasks-in-the-cloud/figure11.png)

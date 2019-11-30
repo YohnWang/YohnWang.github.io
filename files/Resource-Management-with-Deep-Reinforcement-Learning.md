@@ -71,23 +71,31 @@
 可以使用多种形式的函数逼近器来表示策略。例如，状态/动作空间的特征的线性组合（即$\pi_{\theta}(s,a) = \theta^T \phi(s,a)$）是一种流行的选择。深度神经网络（DNN）[18]最近已成功用作函数逼近器，以解决大规模RL任务[30，33]。DNN的优点是它们不需要手工制作的功能。受这些成功的启发，我们使用神经网络来表示设计中的策略。有关详细信息，请参见§3。
 
 > **Policy gradient methods.** We focus on a class of RL algorithms that learn by performing gradient-descent on the policy parameters. Recall that the objective is to maximize the expected cumulative discounted reward; the gradient of this objective given by [34]:
+> 
 > $$
 > \nabla_{\theta} \mathbb{E}_{\pi_{\theta}}\left[\sum_{t=0}^{\infty} \gamma^{t} r_{t}\right]=\mathbb{E}_{\pi_{\theta}}\left[\nabla_{\theta} \log \pi_{\theta}(s, a) Q^{\pi_{\theta}}(s, a)\right]
 > $$
+> 
 > Here, $Q^{\pi\theta}(s,a)$ is the expected cumulative discounted reward from (deterministically) choosing action $a$ in state $s$, and subsequently following policy $\pi_\theta$. The key idea in policy gradient methods is to estimate the gradient by observing the trajectories of executions that are obtained by following the policy. In the simple Monte Carlo Method [19], the agent samples multiple trajectories and uses the empirically computed cumulative discounted reward, $v_t$, as an unbiased estimate of $Q^{\pi\theta}(s_t,a_t)$. It then updates the policy parameters via gradient descent:
+> 
 > $$
 > \theta \leftarrow \theta+\alpha \sum_{t} \nabla_{\theta} \log \pi_{\theta}\left(s_{t}, a_{t}\right) v_{t} 
 > $$
+> 
 > where $\alpha$ is the step size. This equation results in the well-known REINFORCE algorithm [35], and can be intuitively understood as follows. The direction $\nabla_{\theta} \log \pi_{\theta}\left(s_{t}, a_{t}\right)$ gives how to change the policy parameters in order to increase $\pi_\theta(s_t,a_t)$ (the probability of action $a_t$ at state $s_t$). Equation 2 takes a step in this direction; the size of the step depends on how large is the return $v_t$. The net effect is to reinforce actions that empirically lead to better returns. In our design, we use a slight variant [32] that reduces the variance of the gradient estimates by subtracting a baseline value from each return $v_t$. More details follow.
 
 **策略梯度方法.**我们专注于一类RL算法，该算法通过对策略参数执行梯度下降来学习。回想一下，目标是使预期的累积折扣奖励最大化。该目标的梯度由[34]给出：
+
 $$
 \nabla_{\theta} \mathbb{E}_{\pi_{\theta}}\left[\sum_{t=0}^{\infty} \gamma^{t} r_{t}\right]=\mathbb{E}_{\pi_{\theta}}\left[\nabla_{\theta} \log \pi_{\theta}(s, a) Q^{\pi_{\theta}}(s, a)\right]
 $$
+
 在此，$ Q ^ {\pi \theta}(s,a)$是（确定地）选择状态$ s $中的动作$ a $并随后遵循策略$ \pi_ \theta $的预期累积折扣奖励。策略渐变方法中的关键思想是通过观察遵循策略获得的执行轨迹来估计渐变。在简单的蒙特卡洛方法[19]中，代理对多个轨迹进行采样，并使用经验计算的累积折现奖励$ v_t $作为$ Q ^ {\pi \theta}(s_t,a_t)$的无偏估计。然后，它通过梯度下降来更新策略参数：
+
 $$
 \theta \leftarrow \theta+\alpha \sum_{t} \nabla_{\theta} \log \pi_{\theta}\left(s_{t}, a_{t}\right) v_{t} \tag{2}
 $$
+
 其中$ \alpha $是步长。该方程式产生了众所周知的REINFORCE算法[35]，可以直观地理解如下。方向$\nabla_{\theta} \log \pi_{\theta}\left(s_{t}, a_{t}\right)$提供了如何去为了增加$\pi_\theta(s_t,a_t)$（在状态$ s_t $处动作$ a_t $的概率）改变策略参数。等式2朝这个方向迈出了一步。步骤的大小取决于返回$ v_t $的大小。最终结果是加强采取行动，凭经验得出更好的回报。在我们的设计中，我们使用一个轻微的变量[32]，该变量通过从每个返回$ v_t $中减去基线值来减小梯度估计的方差。接下来是更多细节。
 
 ## 3. DESIGN
@@ -98,11 +106,11 @@ $$
 
 ### 3.1 Model
 
-> We consider a cluster with $d$ resource types (e.g., CPU, memory, I/O). Jobs arrive to the cluster in an online fashion in discrete timesteps. The scheduler chooses one or more of the waiting jobs to schedule at each timestep. Similar to prior work [17], we assume that the resource demand of each job is known upon arrival; more specifically, the resource profile of each job $j$ is given by the vector $\mathbf{r}_{j}=\left(r_{j, 1}, \ldots, r_{j, d}\right)$ of resources requirements, and $T_j$ – the *duration* of the job. For simplicity, we assume no preemption and a fixed allocation profile (i.e., no malleability), in the sense that $\mathbf{r}_j$ must be allocated continuously from the time that the job starts execution until completion. Further, we treat the cluster as a single collection of resources, ignoring machine fragmentation effects. While these aspects are important for a practical job scheduler, this simpler model captures the essential elements of multi-resource scheduling and provides a non-trivial setting to study the effectiveness of RL methods in this domain. We discuss how the model can be made more realistic in §5.
+> We consider a cluster with $d$ resource types (e.g., CPU, memory, I/O). Jobs arrive to the cluster in an online fashion in discrete timesteps. The scheduler chooses one or more of the waiting jobs to schedule at each timestep. Similar to prior work [17], we assume that the resource demand of each job is known upon arrival; more specifically, the resource profile of each job $j$ is given by the vector $$\mathbf{r}_{j}=\left(r_{j, 1}, \ldots, r_{j, d}\right)$$ of resources requirements, and $T_j$ – the *duration* of the job. For simplicity, we assume no preemption and a fixed allocation profile (i.e., no malleability), in the sense that $\mathbf{r}_j$ must be allocated continuously from the time that the job starts execution until completion. Further, we treat the cluster as a single collection of resources, ignoring machine fragmentation effects. While these aspects are important for a practical job scheduler, this simpler model captures the essential elements of multi-resource scheduling and provides a non-trivial setting to study the effectiveness of RL methods in this domain. We discuss how the model can be made more realistic in §5.
 >
 > **Objective.** We use the average job slowdown as the primary system objective. Formally, for each job $j$, the slowdown is given by $S_j = C_j=T_j$ ; where $C_j$ is the completion time of the job (i.e., the time between arrival and completion of execution) and $T_j$ is the (ideal) duration of the job; note that $S_j \ge 1$. Normalizing the completion time by the job’s duration prevents biasing the solution towards large jobs, which can occur for objectives such as mean completion time.
 
-我们考虑具有$ d $种资源类型（例如，CPU，内存，I / O）的集群。作业以离散的时间步长以在线方式到达集群。调度程序在每个时间步选择一个或多个等待作业进行调度。类似于先前的工作[17]，我们假设到达时知道每个工作的资源需求；更具体地说，每个作业$ j $的资源配置文件由的资源需求向量$ \mathbf{r}_{j}=\left(r_{j, 1}, \ldots, r_{j, d}\right)$给出，以及$ T_j $ –作业的*持续时间*。为简单起见，我们假设没有抢占和固定的分配配置文件（即没有延展性），在这个意义上，$\mathbf{r}_j$从作业开始执行到完成为止，必须连续分配。此外，我们将集群视为资源的单个集合，而忽略了机器碎片的影响。尽管这些方面对于实际的作业调度程序很重要，但此较简单的模型捕获了多资源调度程序的基本要素，并为研究RL方法在此领域的有效性提供了重要的设置。我们将在§5中讨论如何使模型更加实际。
+我们考虑具有$ d $种资源类型（例如，CPU，内存，I / O）的集群。作业以离散的时间步长以在线方式到达集群。调度程序在每个时间步选择一个或多个等待作业进行调度。类似于先前的工作[17]，我们假设到达时知道每个工作的资源需求；更具体地说，每个作业$ j $的资源配置文件由的资源需求向量$$ \mathbf{r}_{j}=\left(r_{j, 1}, \ldots, r_{j, d}\right)$$给出，以及$ T_j $ –作业的*持续时间*。为简单起见，我们假设没有抢占和固定的分配配置文件（即没有延展性），在这个意义上，$\mathbf{r}_j$从作业开始执行到完成为止，必须连续分配。此外，我们将集群视为资源的单个集合，而忽略了机器碎片的影响。尽管这些方面对于实际的作业调度程序很重要，但此较简单的模型捕获了多资源调度程序的基本要素，并为研究RL方法在此领域的有效性提供了重要的设置。我们将在§5中讨论如何使模型更加实际。
 
 **目标.**我们将平均作业减速情况作为主要系统目标。正式地，对于每个作业$ j $，减速由$ S_j = C_j = T_j $给出；其中$ C_j $是作业的完成时间（即到达和完成执行之间的时间），而$ T_j $是作业的（理想）持续时间；注意$ S_j \ge 1 $。根据工作时间对完成时间进行归一化可以防止将解决方案偏向大型工作，这可能会发生在诸如平均完成时间之类的目标上。
 
@@ -164,9 +172,9 @@ RL公式可以调整以实现其他目标。例如，为了最小化平均完成
 
 ### 4.1 Methodology
 
-> **Workload.** We mimic the setup described in §3.1. Specifically, jobs arrive online according to a Bernoulli process. The average job arrival rate is chosen such that the average load varies between 10% to 190% of cluster capacity. We assume two resources, i.e., with capacity $\{1r,1r\}$. Job durations and resource demands are chosen as follows: 80% of the jobs have duration uniformly chosen between $1t$ and $3t$; the remaining are chosen uniformly from $10t$ to $15t$. Each job has a dominant resource which is picked independently at random. The demand for the dominant resource is chosen uniformly between $0.25r$ and $0.5r$ and the demand of the other resource is chosen uniformly between $0.05r$ and $0.1r$.
+> **Workload.** We mimic the setup described in §3.1. Specifically, jobs arrive online according to a Bernoulli process. The average job arrival rate is chosen such that the average load varies between 10% to 190% of cluster capacity. We assume two resources, i.e., with capacity $$\{1r,1r\}$$. Job durations and resource demands are chosen as follows: 80% of the jobs have duration uniformly chosen between $1t$ and $3t$; the remaining are chosen uniformly from $10t$ to $15t$. Each job has a dominant resource which is picked independently at random. The demand for the dominant resource is chosen uniformly between $0.25r$ and $0.5r$ and the demand of the other resource is chosen uniformly between $0.05r$ and $0.1r$.
 
-**工作量.**我们模仿第3.1节中所述的设置。具体来说，工作是根据伯努利过程在线到达的。选择平均作业到达率，以使平均负载在群集容量的10％到190％之间变化。我们假设两个资源，即容量为$ \{1r，1r \} $。工作时间和资源需求的选择如下：80％的工作时间在$ 1t $和$ 3t $之间均匀选择；其余的从$ 10t $到$ 15t $统一选择。每个工作都有一个主导资源，该资源是随机独立选择的。对主导资源的需求在$ 0.25r $和$ 0.5r $之间统一选择，而其他资源的需求在$ 0.05r $和$ 0.1r $之间统一选择。
+**工作量.**我们模仿第3.1节中所述的设置。具体来说，工作是根据伯努利过程在线到达的。选择平均作业到达率，以使平均负载在群集容量的10％到190％之间变化。我们假设两个资源，即容量为$$ \{1r，1r \} $$。工作时间和资源需求的选择如下：80％的工作时间在$ 1t $和$ 3t $之间均匀选择；其余的从$ 10t $到$ 15t $统一选择。每个工作都有一个主导资源，该资源是随机独立选择的。对主导资源的需求在$ 0.25r $和$ 0.5r $之间统一选择，而其他资源的需求在$ 0.05r $和$ 0.1r $之间统一选择。
 
 > **DeepRM.** We built the DeepRM prototype described in §3 using a neural network with a fully connected hidden layer with 20 neurons, and a total of 89,451 parameters. The “images” used by the DeepRM agent are $20t$ long and each experiment lasts for $50t$. Recall that the agent allocates from a subset of $M$ jobs (we use $M = 10$) but can also observe the number of other jobs (“backlog” which we set to 60 jobs). We use 100 different jobsets during training. In each training iteration, per jobset we run $N = 20$ Monte Carlo simulations in parallel. We update the policy network parameters using the rmsprop [21] algorithm with a learning rate of 0.001. Unless otherwise specified, the results below are from training DeepRM for 1000 training iterations.
 
@@ -188,9 +196,9 @@ RL公式可以调整以实现其他目标。例如，为了最小化平均完成
 
 ![4](resource/Resource-Management-with-Deep-Reinforcement-Learning/4.png)
 
-> **Other objectives.** Figure 5 shows the behavior for two objectives (average job slowdown and average job completion time) when the cluster is highly loaded (load=130%). Recall that DeepRM uses a different reward function for each objective ($-|\mathcal{J}|$ to optimize average job completion time, and $\sum_{j \in \mathcal{J} \frac{-1}{T_j}}$ for average job slowdown; see x3.4). As before we see that Tetris  outperforms the other heuristics. However, DeepRM is the best performing scheme on each objective when trained specifically to optimize for that objective with the appropriate reward function. Thus DeepRM is customizable for different objectives.
+> **Other objectives.** Figure 5 shows the behavior for two objectives (average job slowdown and average job completion time) when the cluster is highly loaded (load=130%). Recall that DeepRM uses a different reward function for each objective ($-\vert \mathcal{J}\vert $ to optimize average job completion time, and $\sum_{j \in \mathcal{J} \frac{-1}{T_j}}$ for average job slowdown; see x3.4). As before we see that Tetris  outperforms the other heuristics. However, DeepRM is the best performing scheme on each objective when trained specifically to optimize for that objective with the appropriate reward function. Thus DeepRM is customizable for different objectives.
 
-**其他目标.** 图5显示了群集高度负载（负载= 130％）时两个目标的行为（平均作业减速和平均作业完成时间）。回想一下，DeepRM为每个目标使用不同的奖励函数（$-|\mathcal{J}|$优化平均作业完成时间，$\sum_{j \in \mathcal{J} \frac{-1}{T_j}}$用于平均作业减速；参考3.4节）。如前所述，Tetris优于其他启发式算法。但是，经过专门培训以使用适当的奖励功能针对该目标进行优化时，DeepRM是针对每个目标的最佳性能方案。因此，DeepRM可针对不同目标进行定制。
+**其他目标.** 图5显示了群集高度负载（负载= 130％）时两个目标的行为（平均作业减速和平均作业完成时间）。回想一下，DeepRM为每个目标使用不同的奖励函数（$-\vert \mathcal{J}\vert $优化平均作业完成时间，$\sum_{j \in \mathcal{J} \frac{-1}{T_j}}$用于平均作业减速；参考3.4节）。如前所述，Tetris优于其他启发式算法。但是，经过专门培训以使用适当的奖励功能针对该目标进行优化时，DeepRM是针对每个目标的最佳性能方案。因此，DeepRM可针对不同目标进行定制。
 
 ![5](resource/Resource-Management-with-Deep-Reinforcement-Learning/5.png)
 
