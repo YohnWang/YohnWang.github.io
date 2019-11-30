@@ -1,8 +1,3 @@
----
-layout: mdtex
-title: Test by latex formula
----
-
 # 基本公式
 
 LATEX公式行内使用两个`$`，例如
